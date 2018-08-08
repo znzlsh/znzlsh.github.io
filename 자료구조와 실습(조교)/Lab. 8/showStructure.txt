@@ -1,0 +1,57 @@
+
+
+
+// bstree를 테스팅하기 위한 showStructure 함수
+// bstree.cpp에 넣고 나머지 함수들을 개발하시면 됩니다.
+
+
+
+template < class TE, class KF >
+void BSTree<TE, KF>::showStructure() const
+
+// Outputs the keys in a binary search tree. The tree is output
+// rotated counterclockwise 90 degrees from its conventional
+// orientation using a "reverse" inorder traversal. This operation is
+// intended for testing and debugging purposes only.
+
+{
+	if (root == 0)
+		cout << "Empty tree" << endl;
+	else
+	{
+		cout << endl;
+		showSub(root, 1);
+		cout << endl;
+	}
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+template < class TE, class KF >
+void BSTree<TE, KF>::showSub(BSTreeNode<TE, KF> *p,
+	int level) const
+
+	// Recursive partner of the showStructure() function. Outputs the
+	// subtree whose root node is pointed to by p. Parameter level is the
+	// level of this node within the tree.
+
+{
+	int j;   // Loop counter
+
+	if (p != 0)
+	{
+		showSub(p->right, level + 1);         // Output right subtree
+		for (j = 0; j < level; j++)    // Tab over to level
+			cout << "\t";
+		cout << " " << p->element.key();   // Output key
+		if ((p->left != 0) &&           // Output "connector"
+			(p->right != 0))
+			cout << "<";
+		else if (p->right != 0)
+			cout << "/";
+		else if (p->left != 0)
+			cout << "\\";
+		cout << endl;
+		showSub(p->left, level + 1);          // Output left subtree
+	}
+}
